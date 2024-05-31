@@ -28,7 +28,7 @@
             <controls:MusicControl Grid.Column="1"></controls:MusicControl>
         </Grid>
 
-        <Grid Grid.Row="2"></Grid>
+        <controls:ProgressBarUserControl Grid.Row="2"></controls:ProgressBarUserControl>
 
         <controls:PlayerControl Grid.Row="3"></controls:PlayerControl>
     </Grid>

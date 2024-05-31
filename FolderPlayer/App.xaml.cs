@@ -55,6 +55,7 @@ namespace FolderPlayer
             services.AddTransient<MusicControlViewModel>();
             services.AddTransient<PlaylistControlViewModel>();
             services.AddTransient<PlayerControlViewModel>();
+            services.AddTransient<ProgressBarControlViewModel>();
         }
     }
 }

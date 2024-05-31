@@ -17,7 +17,9 @@ namespace FolderPlayer.Services
         private double _progress { get; set; }
         private MusicFile? _currentMusicFile { get; set; }
         private bool _isPlaying = false;
+
         public event EventHandler<bool> IsPlayingEvent;
+        public event EventHandler<double> ProgressEvent;
 
         public PlayerService(ILogger<PlayerControl> logger, IMusicFileService musicFileService)
         {
@@ -38,10 +40,12 @@ namespace FolderPlayer.Services
             if (_currentMusicFile != musicFile)
             {
                 Stop();
+                _timer.Stop();
                 _currentMusicFile = musicFile;
             }
             if (_currentMusicFile == null) IsPlayingEvent.Invoke(this, false);
             Play(_currentMusicFile?.Path);
+            _timer.Start();
             IsPlayingEvent.Invoke(this, true);
         }
 
@@ -84,7 +88,7 @@ namespace FolderPlayer.Services
         private void Timer_Tick(object? sender, EventArgs? e)
         {
             _progress = (_audioFile.CurrentTime.TotalSeconds / _audioFile.TotalTime.TotalSeconds) * 100;
-            Debug.WriteLine(_progress);
+            ProgressEvent.Invoke(this, _progress);
         }
 
     }

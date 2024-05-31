@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FolderPlayer.Services
+﻿namespace FolderPlayer.Services
 {
     public interface IPlayerService
     {
         event EventHandler<bool> IsPlayingEvent;
+        event EventHandler<double> ProgressEvent;
 
         void Play();
 
