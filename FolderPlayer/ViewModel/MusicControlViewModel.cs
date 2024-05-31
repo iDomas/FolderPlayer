@@ -2,32 +2,33 @@
 using System.Collections.ObjectModel;
 using System.IO;
 using FolderPlayer.Model;
+using FolderPlayer.Services;
 
 namespace FolderPlayer.ViewModel
 {
     public class MusicControlViewModel
     {
-        public ObservableCollection<MusicFile> MusicFiles { get; } = new();
-        
-        public MusicFile? SelectedMusicFile { get; set; }
-        
-        public MusicControlViewModel()
+        private readonly IMusicFileService _musicFileService;
+        private readonly IPlayerService _playerService;
+
+
+        public MusicControlViewModel(IPlayerService playerService, IMusicFileService musicFileService)
         {
-            
+            _musicFileService = musicFileService;
+            _playerService = playerService;
+            MusicFiles = _musicFileService.GetMusicFiles();
         }
 
-        public async Task LoadMusicFiles()
+        public ObservableCollection<MusicFile> MusicFiles { get; }
+
+        public MusicFile? SelectedMusicFile
         {
-            const string directory = "E:\\Music\\2024\\rockish";
-            var files = Directory.GetFiles(directory);
-            
-            foreach (var file in files)
+            get { return _musicFileService.GetSelectedMusicFile(); }
+            set
             {
-                MusicFiles.Add(new MusicFile
-                {
-                    Name = Path.GetFileName(file),
-                    Path = file
-                });
+                _musicFileService.SelectMusicFile(value);
+                if (value == null) return;
+                _playerService.Play();
             }
         }
     }

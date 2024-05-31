@@ -2,6 +2,13 @@
 
 namespace FolderPlayer.Command
 {
+    public class DelegateCommand : DelegateCommand<object>
+    {
+        public DelegateCommand(Action<object?> execute, Func<object?, bool> canExecute = null) : base(execute, canExecute)
+        {
+        }
+    }
+
     public class DelegateCommand<T> : ICommand
     {
         private readonly Action<T?> _execute;

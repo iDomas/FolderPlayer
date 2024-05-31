@@ -6,8 +6,10 @@
              xmlns:local="clr-namespace:FolderPlayer.Controls"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid> 
-        <ListView Background="Beige" DataContext="{Binding }"/>
+    <Grid>
+        <ListView Background="Beige" ItemsSource="{Binding Folders}"
+                  SelectedItem="{Binding SelectedFolder, Mode=OneWayToSource}"
+                  SelectionChanged="Selector_OnSelectionChanged"/>
         
     </Grid>
 </UserControl>

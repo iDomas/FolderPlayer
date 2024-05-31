@@ -7,7 +7,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="80" d:DesignWidth="800"> 
     <UserControl.Resources>
-        <!-- Define the style for the round button -->
         <Style x:Key="RoundButtonStyle" TargetType="Button">
             <Setter Property="Template">
                 <Setter.Value>
@@ -33,6 +32,16 @@
             <Setter Property="BorderBrush" Value="Violet"/>
             <Setter Property="BorderThickness" Value="2"/>
         </Style>
+        <Style x:Key="PlayPauseImageStyle" TargetType="{x:Type Image}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsPlaying}" Value="True">
+                    <Setter Property="Source" Value="/Resources/pause_white.png"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsPlaying}" Value="False">
+                    <Setter Property="Source" Value="/Resources/play_arrow_white.png"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
 
     <Grid Background="BlueViolet">
@@ -56,10 +65,11 @@
                 Height="50"
                 Width="50"
                 Margin="30 0 30 0"
-                Style="{StaticResource RoundButtonStyle}">
+                Style="{StaticResource RoundButtonStyle}"
+                Command="{Binding TogglePlayPauseCommand}">
                 <Button.Content>
                     <Border Padding="6">
-                        <Image Source="/Resources/play_arrow_white.png"></Image>
+                        <Image Style="{StaticResource PlayPauseImageStyle}"></Image>
                     </Border>
                 </Button.Content>
             </Button>

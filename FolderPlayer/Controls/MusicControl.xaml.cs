@@ -1,5 +1,6 @@
 ﻿using System.Windows.Controls;
 using FolderPlayer.ViewModel;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace FolderPlayer.Controls
 {
@@ -8,10 +9,10 @@ namespace FolderPlayer.Controls
         public MusicControl()
         {
             InitializeComponent();
-            
-            var musicViewModel = new MusicControlViewModel();
+
+            var musicViewModel = App.AppHost!.Services.GetRequiredService<MusicControlViewModel>();
             DataContext = musicViewModel;
-            Loaded += async (sender, args) => await musicViewModel.LoadMusicFiles();
+            //Loaded += async (sender, args) => await musicViewModel.LoadMusicFiles();
         }
 
         private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)

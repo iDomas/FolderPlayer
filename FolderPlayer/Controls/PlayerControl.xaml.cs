@@ -1,4 +1,6 @@
 ﻿using System.Windows.Controls;
+using FolderPlayer.ViewModel;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace FolderPlayer.Controls
 {
@@ -7,9 +9,14 @@ namespace FolderPlayer.Controls
     /// </summary>
     public partial class PlayerControl : UserControl
     {
+        private readonly PlayerControlViewModel _viewModel;
+
         public PlayerControl()
         {
             InitializeComponent();
+
+            _viewModel = App.AppHost!.Services.GetRequiredService<PlayerControlViewModel>();
+            DataContext = _viewModel;
         }
     }
 }
