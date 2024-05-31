@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using FolderPlayer.Services;
+using FolderPlayer.Services.Persistence;
 using FolderPlayer.ViewModel;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -42,6 +43,8 @@ namespace FolderPlayer
         {
             if (services == null) return;
             services.AddLogging();
+
+            services.AddSingleton<IDataPersistence, DataPersistence>();
 
             services.AddSingleton<IFolderService, FolderService>();
             services.AddSingleton<IMusicFileService, MusicFileService>();

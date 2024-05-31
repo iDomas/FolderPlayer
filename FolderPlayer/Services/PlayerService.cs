@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Windows.Threading;
 using FolderPlayer.Controls;
+using FolderPlayer.Model;
 using Microsoft.Extensions.Logging;
 using NAudio.Wave;
 
@@ -14,7 +15,7 @@ namespace FolderPlayer.Services
         private IWavePlayer _waveOut;
         private readonly IMusicFileService _musicFileService;
         private double _progress { get; set; }
-
+        private MusicFile? _currentMusicFile { get; set; }
         private bool _isPlaying = false;
         public event EventHandler<bool> IsPlayingEvent;
 
@@ -34,8 +35,13 @@ namespace FolderPlayer.Services
         public void Play()
         {
             var musicFile = _musicFileService.GetSelectedMusicFile();
-            if (musicFile == null) IsPlayingEvent.Invoke(this, false);
-            Play(musicFile.Path);
+            if (_currentMusicFile != musicFile)
+            {
+                Stop();
+                _currentMusicFile = musicFile;
+            }
+            if (_currentMusicFile == null) IsPlayingEvent.Invoke(this, false);
+            Play(_currentMusicFile?.Path);
             IsPlayingEvent.Invoke(this, true);
         }
 
@@ -50,6 +56,7 @@ namespace FolderPlayer.Services
         {
             try
             {
+                if (_currentMusicFile == null) return;
                 _waveOut.Stop();
                 _audioFile.Position = 0;
                 _progress = 0;
@@ -64,7 +71,7 @@ namespace FolderPlayer.Services
             }
         }
 
-        private void Play(string audioFilePath)
+        private void Play(string? audioFilePath)
         {
             if (_audioFile == null)
             {

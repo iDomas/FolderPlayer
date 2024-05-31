@@ -7,7 +7,7 @@ using Microsoft.Win32;
 
 namespace FolderPlayer.ViewModel
 {
-    public class MenuControlViewModel : IDisposable
+    public class MenuControlViewModel
     {
         private OpenFolderDialog _dialog;
         private readonly IFolderService _folderService;
@@ -41,16 +41,11 @@ namespace FolderPlayer.ViewModel
                 var folder = new Folder
                 {
                     Name = Path.GetFileName(_dialog.FolderName),
-                    Path = _dialog.FolderName
+                    Path = _dialog.FolderName,
+                    IsNew = true
                 };
                 _folderService.AddFolder(folder);
             }
         }
-
-        public void Dispose()
-        {
-        
-        }
-
     }
 }

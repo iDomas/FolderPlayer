@@ -4,6 +4,7 @@
     {
         public string Path { get; set; }
         public string Name { get; set; }
+        public bool IsNew { get; set; }
 
         public override string ToString()
         {

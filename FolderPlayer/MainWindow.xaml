@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:FolderPlayer"
         xmlns:controls="clr-namespace:FolderPlayer.Controls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Folder Player" Height="450" Width="800" MinHeight="450" MaxWidth="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"></RowDefinition>
